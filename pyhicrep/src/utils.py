@@ -13,15 +13,15 @@ def open_cooler_file(path: str, bin_size: int) -> tuple:
     return mat, filename
 
 
-def get_out_filepath(out_file: str, result_folder_name: str) -> str:
+def get_out_filepath(out_file: str, result_folder: str) -> str:
     if not out_file:
         filepath = "result_SCC.txt"
     else:
         filepath = out_file
 
-    if result_folder_name is not None:
-        os.makedirs(result_folder_name, exist_ok=True)
-        filepath = f"./{result_folder_name}/{filepath}"
+    if result_folder is not None:
+        os.makedirs(result_folder, exist_ok=True)
+        filepath = f"./{result_folder}/{filepath}"
 
     return filepath
 
