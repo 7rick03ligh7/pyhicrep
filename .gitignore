@@ -130,3 +130,6 @@ dmypy.json
 
 # VSCode
 .vscode/
+
+# TmpTestResults
+test_results
