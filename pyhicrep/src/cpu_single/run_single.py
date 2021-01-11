@@ -13,7 +13,6 @@ def run_single(filepathes: list,
                out_file="",
                result_folder="",
                bin_size=-1,
-               is_csv=False,
                to_csv=False
                ):
 
@@ -21,7 +20,7 @@ def run_single(filepathes: list,
     all_scores = []
 
     # Calculate SCC between two files
-    if not is_csv:
+    if len(filepathes) == 2:
         path1, path2 = filepathes
         mat1, file1 = open_cooler_file(path1, bin_size=bin_size)
         mat2, file2 = open_cooler_file(path2, bin_size=bin_size)

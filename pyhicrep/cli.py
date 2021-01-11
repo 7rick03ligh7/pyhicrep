@@ -1,5 +1,5 @@
-import argparse
 import os
+import argparse
 from src.cpu_single.run_single import run_single
 
 if __name__ == '__main__':
@@ -103,12 +103,11 @@ if __name__ == '__main__':
     chromnames = [arguments.chr]
     out_file = arguments.outFile
     result_folder = arguments.resFolder
+
     to_csv = False
     if arguments.saveCSV:
         to_csv = True
 
-    # stubs
-    is_csv = False
     if arguments.file1 and arguments.file2:
         filepathes = [arguments.file1, arguments.file2]
     elif arguments.filesFolder:
@@ -126,7 +125,6 @@ if __name__ == '__main__':
                    out_file=out_file,
                    result_folder=result_folder,
                    bin_size=bin_size,
-                   is_csv=is_csv,
                    to_csv=to_csv
                    )
 
