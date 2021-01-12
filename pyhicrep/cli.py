@@ -1,6 +1,7 @@
 import os
 import argparse
 from src.cpu_single.run_single import run_single
+from src.cpu_parallel.run_parallel import run_parallel
 from src.logger import configure_logging
 
 if __name__ == '__main__':
@@ -101,10 +102,15 @@ if __name__ == '__main__':
                         nargs='?',
                         help=("")
                         )
+    parser.add_argument('-pbar',
+                        type=bool,
+                        required=False,
+                        default=True,
+                        const=True,
+                        nargs='?',
+                        help=("")
+                        )
     arguments = parser.parse_args()
-
-    assert int(arguments.hicParallel) + int(arguments.chrParallel) != 2, (
-        "only one parallel method can be selected")
 
     bin_size = arguments.binSize
     max_bins = arguments.maxBins
@@ -141,5 +147,21 @@ if __name__ == '__main__':
                    )
 
     elif int(arguments.hicParallel) + int(arguments.chrParallel) == 1:
+        n_processes = arguments.threads
         if arguments.hicParallel:
-            pass
+            is_hicwise = arguments.hicParallel
+        else:
+            is_hicwise = not arguments.hicParallel
+        run_parallel(filepathes,
+                     max_bins,
+                     h,
+                     chromnames,
+                     out_file=out_file,
+                     result_folder=result_folder,
+                     bin_size=bin_size,
+                     to_csv=to_csv,
+                     n_processes=n_processes,
+                     is_hicwise=is_hicwise
+                     )
+    else:
+        raise("only one parallel method can be selected")

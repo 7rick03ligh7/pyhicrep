@@ -6,6 +6,7 @@ from ..utils import (open_cooler_file,
                      save_to_txt)
 from ..logger import log
 import logging
+from typing import NoReturn
 
 
 @log
@@ -73,7 +74,7 @@ def run_single(filepathes: list,
                result_folder="",
                bin_size=-1,
                to_csv=False
-               ):
+               ) -> NoReturn:
 
     # List for calculated SCC
     all_scores = []
