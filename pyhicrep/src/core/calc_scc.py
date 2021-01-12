@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.sparse as sp
-from src.core.utils import calc_diag_correlation
-from src.logger import log
+from .utils import calc_diag_correlation
+from ..logger import log
 
 
 @log

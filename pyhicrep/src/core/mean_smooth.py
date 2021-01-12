@@ -1,6 +1,6 @@
 import numpy as np
 from scipy import sparse as sp
-from src.logger import log
+from ..logger import log
 
 
 @log

@@ -1,10 +1,10 @@
-from src.core.calc_scc import calc_scc
-from src.core.mean_smooth import meanFilterSparse
-from src.utils import (open_cooler_file,
-                       get_out_filepath,
-                       save_to_csv,
-                       save_to_txt)
-from src.logger import log
+from ..core.calc_scc import calc_scc
+from ..core.mean_smooth import meanFilterSparse
+from ..utils import (open_cooler_file,
+                     get_out_filepath,
+                     save_to_csv,
+                     save_to_txt)
+from ..logger import log
 import logging
 
 
