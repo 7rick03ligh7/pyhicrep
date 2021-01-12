@@ -2,8 +2,10 @@ import cooler
 import os
 import pandas as pd
 import numpy as np
+from src.logger import log
 
 
+@log
 def open_cooler_file(path: str, bin_size: int) -> tuple:
     filename = path.split("/")[-1]
     fileformat = filename.split(".")[-1]
@@ -13,6 +15,7 @@ def open_cooler_file(path: str, bin_size: int) -> tuple:
     return mat, filename
 
 
+@log
 def get_out_filepath(out_file: str, result_folder: str) -> str:
     if not out_file:
         filepath = "result_SCC.txt"
@@ -26,6 +29,7 @@ def get_out_filepath(out_file: str, result_folder: str) -> str:
     return filepath
 
 
+@log
 def save_to_txt(filepath: str,
                 chromnames: list,
                 all_scores: list
@@ -42,6 +46,7 @@ def save_to_txt(filepath: str,
             f.write("\n")
 
 
+@log
 def save_to_csv(filepath: str,
                 chromnames: str,
                 indexnames: list

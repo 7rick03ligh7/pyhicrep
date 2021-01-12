@@ -1,6 +1,7 @@
 import os
 import argparse
 from src.cpu_single.run_single import run_single
+from src.logger import configure_logging
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -92,6 +93,14 @@ if __name__ == '__main__':
                         help=("flag for generating and saving <chrom name>.csv"
                               "files from general result")
                         )
+    parser.add_argument('-silent',
+                        type=bool,
+                        required=False,
+                        default=False,
+                        const=True,
+                        nargs='?',
+                        help=("")
+                        )
     arguments = parser.parse_args()
 
     assert int(arguments.hicParallel) + int(arguments.chrParallel) != 2, (
@@ -116,6 +125,9 @@ if __name__ == '__main__':
         filepathes = [os.path.join(folderpath, file) for file in files]
     else:
         raise("select file1 and file2 or filesFolder")
+
+    logger_stdout = not arguments.silent
+    configure_logging(stdout=logger_stdout)
 
     if int(arguments.hicParallel) + int(arguments.chrParallel) == 0:
         run_single(filepathes,

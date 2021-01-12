@@ -1,7 +1,9 @@
 import numpy as np
 from scipy import sparse as sp
+from src.logger import log
 
 
+@log
 def meanFilterSparse(a, h):
     """Apply a mean filter to an input sparse matrix. This convolves
     the input with a kernel of size 2*h + 1 with constant entries and

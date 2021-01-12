@@ -1,8 +1,10 @@
 import numpy as np
 import scipy.sparse as sp
 from src.core.utils import calc_diag_correlation
+from src.logger import log
 
 
+@log
 def calc_scc(mat1: sp.coo_matrix, mat2: sp.coo_matrix, max_bins: int) -> float:
     """calculate SCC between two hi-c matrix
 
