@@ -2,7 +2,7 @@ import cooler
 import os
 import pandas as pd
 import numpy as np
-from src.logger import log
+from .logger import log
 
 
 @log
