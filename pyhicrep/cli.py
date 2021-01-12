@@ -4,6 +4,7 @@ from src.cpu_single.run_single import run_single
 from src.cpu_parallel.run_parallel import run_parallel
 from src.logger import configure_logging
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--file1',
@@ -105,7 +106,7 @@ if __name__ == '__main__':
     parser.add_argument('-pbar',
                         type=bool,
                         required=False,
-                        default=True,
+                        default=False,
                         const=True,
                         nargs='?',
                         help=("")
@@ -118,6 +119,10 @@ if __name__ == '__main__':
     chromnames = [arguments.chr]
     out_file = arguments.outFile
     result_folder = arguments.resFolder
+
+    is_pbar = arguments.pbar
+    if arguments.silent:
+        is_pbar = False
 
     to_csv = False
     if arguments.saveCSV:
@@ -133,6 +138,7 @@ if __name__ == '__main__':
         raise("select file1 and file2 or filesFolder")
 
     logger_stdout = not arguments.silent
+    logger_stdout = not arguments.pbar
     configure_logging(stdout=logger_stdout)
 
     if int(arguments.hicParallel) + int(arguments.chrParallel) == 0:
@@ -143,7 +149,8 @@ if __name__ == '__main__':
                    out_file=out_file,
                    result_folder=result_folder,
                    bin_size=bin_size,
-                   to_csv=to_csv
+                   to_csv=to_csv,
+                   is_pbar=is_pbar
                    )
 
     elif int(arguments.hicParallel) + int(arguments.chrParallel) == 1:
@@ -161,7 +168,8 @@ if __name__ == '__main__':
                      bin_size=bin_size,
                      to_csv=to_csv,
                      n_processes=n_processes,
-                     is_hicwise=is_hicwise
+                     is_hicwise=is_hicwise,
+                     is_pbar=is_pbar
                      )
     else:
         raise("only one parallel method can be selected")

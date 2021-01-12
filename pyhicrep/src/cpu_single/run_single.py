@@ -7,6 +7,7 @@ from ..utils import (open_cooler_file,
 from ..logger import log
 import logging
 from typing import NoReturn
+from tqdm import tqdm
 
 
 @log
@@ -41,10 +42,21 @@ def run_between_multiple_files(filepathes: list,
                                chromnames: list,
                                bin_size: int,
                                h: int,
-                               max_bins: int) -> list:
+                               max_bins: int,
+                               is_pbar: bool) -> list:
     all_scores = []
+    if is_pbar:
+        main_pbar = tqdm(total=len(filepathes[:-1]),
+                         leave=False,
+                         ascii=" 123456789#",
+                         position=0)
     for i, path1 in enumerate(filepathes[:-1]):
         paths2 = filepathes[i+1:]
+        if is_pbar:
+            second_pbar = tqdm(total=len(paths2),
+                               leave=False,
+                               ascii=" 123456789#",
+                               position=1)
         mat1, file1 = open_cooler_file(path1, bin_size=bin_size)
         for j, path2 in enumerate(paths2):
             mat2, file2 = open_cooler_file(path2, bin_size=bin_size)
@@ -61,7 +73,13 @@ def run_between_multiple_files(filepathes: list,
                 scores.append(score)
             all_scores.append([file1, file2, scores])
 
+            if is_pbar:
+                second_pbar.update(1)
             logging.info(f"{file1} {file2} done.")
+        if is_pbar:
+            main_pbar.update(1)
+    second_pbar.close()
+    main_pbar.close()
     return all_scores
 
 
@@ -73,7 +91,8 @@ def run_single(filepathes: list,
                out_file="",
                result_folder="",
                bin_size=-1,
-               to_csv=False
+               to_csv=False,
+               is_pbar=False
                ) -> NoReturn:
 
     # List for calculated SCC
@@ -93,7 +112,8 @@ def run_single(filepathes: list,
                                                 chromnames,
                                                 bin_size,
                                                 h,
-                                                max_bins)
+                                                max_bins,
+                                                is_pbar)
 
     # Calculate filepath
     filepath = get_out_filepath(out_file=out_file,

@@ -16,7 +16,8 @@ def run_hicwise_parallel(filepathes: list,
                          bin_size: int,
                          h: int,
                          max_bins: int,
-                         n_processes: int
+                         n_processes: int,
+                         is_pbar: bool
                          ) -> list:
     # Initializing
     procs = dict()
@@ -66,17 +67,24 @@ def run_hicwise_parallel(filepathes: list,
                 for pid in workers_free_pid:
                     selected_hic = filepathes[selected]
                     for_comparison_hics = filepathes[selected+1:]
-                    pbars[pid] = tqdm(total=len(for_comparison_hics),
-                                      desc=f'Process {pid}',
-                                      leave=False,
-                                      position=pid)
+                    if is_pbar:
+                        pbars[pid] = tqdm(total=len(for_comparison_hics),
+                                          desc=f'Process {pid}',
+                                          ascii=" 123456789#",
+                                          leave=False,
+                                          position=pid)
                     procs_queue_inputs[pid].put([selected_hic,
                                                  for_comparison_hics])
                     selected += 1
                 workers_free_pid = []
         pid, status, output_data = procs_queue_output.get()
         if status == 'step':
-            pbars[pid].update(1)
+            if is_pbar:
+                pbars[pid].update(1)
+            logging.info((f"{output_data[0]}"
+                          f"{output_data[1]}"
+                          f"{output_data[2]} done"))
+
             all_scores.append(output_data)
         if status == 'end':
             workers_free_pid = [pid]
@@ -85,9 +93,10 @@ def run_hicwise_parallel(filepathes: list,
     # Close all processes
     for pid in range(n_processes):
         procs_queue_inputs[pid].put(['stop'])
-        pbars[pid].close()
+        if is_pbar:
+            pbars[pid].close()
         procs[pid].join()
-    #
+
     return all_scores
 
 
@@ -101,7 +110,8 @@ def run_parallel(filepathes: list,
                  bin_size=-1,
                  to_csv=False,
                  n_processes=4,
-                 is_hicwise=True
+                 is_hicwise=True,
+                 is_pbar=False
                  ) -> NoReturn:
 
     if is_hicwise:
@@ -110,7 +120,8 @@ def run_parallel(filepathes: list,
                                           bin_size=bin_size,
                                           h=h,
                                           max_bins=max_bins,
-                                          n_processes=n_processes)
+                                          n_processes=n_processes,
+                                          is_pbar=is_pbar)
     else:
         raise("the chromosome-wise parallel calculation doesn't realize yet")
 
