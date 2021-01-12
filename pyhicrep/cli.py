@@ -1,12 +1,22 @@
+import sys
 import os
 import argparse
-from src.cpu_single.run_single import run_single
-from src.cpu_parallel.run_parallel import run_parallel
-from src.logger import configure_logging
+
+from .src.cpu_single.run_single import run_single
+from .src.cpu_parallel.run_parallel import run_parallel
+from .src.logger import configure_logging
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter,
+                      argparse.MetavarTypeHelpFormatter):
+    pass
+
+
+def main():
+    args = sys.argv
+    parser = argparse.ArgumentParser(
+        formatter_class=CustomFormatter
+        )
     parser.add_argument('--file1',
                         type=str,
                         required=False,
@@ -112,6 +122,9 @@ if __name__ == '__main__':
                         help=("")
                         )
     arguments = parser.parse_args()
+    if len(args) == 1:
+        parser.print_help()
+        return
 
     bin_size = arguments.binSize
     max_bins = arguments.maxBins
@@ -135,7 +148,9 @@ if __name__ == '__main__':
         folderpath = arguments.filesFolder
         filepathes = [os.path.join(folderpath, file) for file in files]
     else:
-        raise("select file1 and file2 or filesFolder")
+        print(("ERROR: Select file1 and file2 or filesFolder. "
+               "For help: pyhicrep --help"))
+        return
 
     logger_stdout = not arguments.silent
     logger_stdout = not arguments.pbar
@@ -172,4 +187,10 @@ if __name__ == '__main__':
                      is_pbar=is_pbar
                      )
     else:
-        raise("only one parallel method can be selected")
+        print(("ERROR: Only one of the parallel method can be selected. "
+               "For help: pyhicrep --help"))
+        return
+
+
+if __name__ == '__main__':
+    main()
