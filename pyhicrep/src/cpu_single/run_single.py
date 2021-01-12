@@ -78,8 +78,9 @@ def run_between_multiple_files(filepathes: list,
             logging.info(f"{file1} {file2} done.")
         if is_pbar:
             main_pbar.update(1)
-    second_pbar.close()
-    main_pbar.close()
+            second_pbar.close()
+    if is_pbar:
+        main_pbar.close()
     return all_scores
 
 
