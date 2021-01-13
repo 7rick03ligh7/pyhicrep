@@ -130,9 +130,18 @@ def main():
     bin_size = arguments.binSize
     max_bins = arguments.maxBins
     h = arguments.h
-    chromnames = [arguments.chr]
     out_file = arguments.outFile
     result_folder = arguments.resFolder
+
+    chromnames = []
+    if arguments.chrFile:
+        with open(arguments.chrFile, 'r') as f:
+            for line in f:
+                chromnames.append(line[:-1])
+            if line[-1] != '\n':
+                print('ERROR: \n must be at last line')
+    else:
+        chromnames = arguments.chr.split(',')
 
     is_pbar = arguments.pbar
     if arguments.silent:
@@ -158,8 +167,7 @@ def main():
                "For help: pyhicrep --help"))
         return
 
-    logger_stdout = not arguments.silent
-    logger_stdout = not arguments.pbar
+    logger_stdout = not arguments.pbar and not arguments.silent
     configure_logging(stdout=logger_stdout)
 
     if int(arguments.hicParallel) + int(arguments.chrParallel) == 0:
