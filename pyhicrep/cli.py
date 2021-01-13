@@ -1,6 +1,7 @@
 import sys
 import os
 import argparse
+import re
 
 from pyhicrep.src.cpu_single.run_single import run_single
 from pyhicrep.src.cpu_parallel.run_parallel import run_parallel
@@ -145,7 +146,12 @@ def main():
         filepathes = [arguments.file1, arguments.file2]
     elif arguments.filesFolder:
         files = os.listdir(arguments.filesFolder)
+        files.sort(key=lambda f: int(re.sub(r"\D", "", f)))
         folderpath = arguments.filesFolder
+
+        # this crutch for join path with "/" on Windows
+        if folderpath[-1] != '/':
+            folderpath += '/'
         filepathes = [os.path.join(folderpath, file) for file in files]
     else:
         print(("ERROR: Select file1 and file2 or filesFolder. "

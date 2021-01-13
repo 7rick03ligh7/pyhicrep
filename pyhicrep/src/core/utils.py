@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.stats as ss
 from mean_smooth import mean_filter_upper_ndiag
+from typing import NoReturn
 
 
 def get_distr_values_of_ranks(ranks: np.ndarray) -> np.ndarray:
@@ -106,7 +107,13 @@ def calc_diag_correlation(diags: np.ndarray, mask: np.ndarray) -> tuple:
     return (np.nan, np.nan)
 
 
-def warm_up_smooth():
+def warm_up_smooth() -> NoReturn:
+    """function for warmup smooth njit (numba)
+
+    Returns
+    -------
+    NoReturn
+    """
     a = np.random.randint(0, 10, size=(10, 10))
     b = np.zeros_like(a, dtype=float)
     h = 1
