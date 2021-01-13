@@ -5,6 +5,7 @@ from ..utils import (open_cooler_file,
                      save_to_csv,
                      save_to_txt)
 from ..logger import log
+from ..core.utils import warm_up_smooth
 import logging
 from typing import NoReturn
 from tqdm import tqdm
@@ -103,6 +104,9 @@ def run_single(filepathes: list,
                to_csv=False,
                is_pbar=False
                ) -> NoReturn:
+
+    # warm up njit
+    warm_up_smooth()
 
     # List for calculated SCC
     all_scores = []

@@ -8,6 +8,7 @@ from ..utils import (get_out_filepath,
                      save_to_csv,
                      save_to_txt)
 from ..logger import log
+from ..core.utils import warm_up_smooth
 
 
 @log
@@ -113,6 +114,9 @@ def run_parallel(filepathes: list,
                  is_hicwise=True,
                  is_pbar=False
                  ) -> NoReturn:
+
+    # warm up njit
+    warm_up_smooth()
 
     if is_hicwise:
         all_scores = run_hicwise_parallel(filepathes,

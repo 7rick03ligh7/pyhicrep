@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.stats as ss
+from mean_smooth import mean_filter_upper_ndiag
 
 
 def get_distr_values_of_ranks(ranks: np.ndarray) -> np.ndarray:
@@ -103,3 +104,11 @@ def calc_diag_correlation(diags: np.ndarray, mask: np.ndarray) -> tuple:
 
             return (corr, weight)
     return (np.nan, np.nan)
+
+
+def warm_up_smooth():
+    a = np.random.randint(0, 10, size=(10, 10))
+    b = np.zeros_like(a, dtype=float)
+    h = 1
+    max_bins = 3
+    mean_filter_upper_ndiag(a, b, h, max_bins)
