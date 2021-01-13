@@ -1,5 +1,5 @@
 from ..core.calc_scc import calc_scc
-from ..core.mean_smooth import meanFilterSparse
+from ..core.mean_smooth import mean_filter_upper_ndiag
 from ..utils import (open_cooler_file,
                      get_out_filepath,
                      save_to_csv,
@@ -8,6 +8,7 @@ from ..logger import log
 import logging
 from typing import NoReturn
 from tqdm import tqdm
+import numpy as np
 
 
 @log
@@ -26,10 +27,12 @@ def run_between_two_file(filepathes: list,
         hic1 = mat1.fetch(chrom)
         hic2 = mat2.fetch(chrom)
 
-        hic1 = meanFilterSparse(hic1, h=h)
-        hic2 = meanFilterSparse(hic2, h=h)
+        hic1_smoothed = np.zeros(hic1.shape, dtype=float)
+        hic2_smoothed = np.zeros(hic2.shape, dtype=float)
+        mean_filter_upper_ndiag(hic1.A, hic1_smoothed, h=h, max_bins=max_bins)
+        mean_filter_upper_ndiag(hic2.A, hic2_smoothed, h=h, max_bins=max_bins)
 
-        score = calc_scc(hic1, hic2, max_bins=max_bins)
+        score = calc_scc(hic1_smoothed, hic2_smoothed, max_bins=max_bins)
         scores.append(score)
 
     all_scores.append([file1, file2, scores])
@@ -66,10 +69,15 @@ def run_between_multiple_files(filepathes: list,
                 hic1 = mat1.fetch(chrom)
                 hic2 = mat2.fetch(chrom)
 
-                hic1 = meanFilterSparse(hic1, h=h)
-                hic2 = meanFilterSparse(hic2, h=h)
+                hic1_smoothed = np.zeros(hic1.shape, dtype=float)
+                hic2_smoothed = np.zeros(hic2.shape, dtype=float)
+                mean_filter_upper_ndiag(hic1.A, hic1_smoothed,
+                                        h=h, max_bins=max_bins)
+                mean_filter_upper_ndiag(hic2.A, hic2_smoothed,
+                                        h=h, max_bins=max_bins)
 
-                score = calc_scc(hic1, hic2, max_bins=max_bins)
+                score = calc_scc(hic1_smoothed, hic2_smoothed,
+                                 max_bins=max_bins)
                 scores.append(score)
             all_scores.append([file1, file2, scores])
 

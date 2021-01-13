@@ -2,7 +2,7 @@ import cooler
 import numpy as np
 import multiprocessing as mp
 from ..core.calc_scc import calc_scc
-from ..core.mean_smooth import meanFilterSparse
+from ..core.mean_smooth import mean_filter_upper_ndiag
 from typing import NoReturn
 
 
@@ -10,7 +10,7 @@ def calc_scc_onevsall_worker(pid: int,
                              queue_input: mp.Queue,
                              queue_output: mp.Queue,
                              chromnames: list,
-                             maxbins: int,
+                             max_bins: int,
                              h: int) -> NoReturn:
     while True:
         input_data = queue_input.get()
@@ -35,9 +35,21 @@ def calc_scc_onevsall_worker(pid: int,
             for chrom in chromnames:
                 hic1 = mtx1.fetch(chrom)
                 hic2 = mtx2.fetch(chrom)
-                hic1 = meanFilterSparse(hic1, h=h)
-                hic2 = meanFilterSparse(hic2, h=h)
-                scores.append(calc_scc(hic1, hic2, maxbins))
+                
+                # hic1 = meanFilterSparse(hic1, h=h)
+                # hic2 = meanFilterSparse(hic2, h=h)
+                # scores.append(calc_scc(hic1, hic2, max_bins))
+                
+                hic1_smoothed = np.zeros(hic1.shape, dtype=float)
+                hic2_smoothed = np.zeros(hic2.shape, dtype=float)
+                mean_filter_upper_ndiag(hic1.A, hic1_smoothed,
+                                        h=h, max_bins=max_bins)
+                mean_filter_upper_ndiag(hic2.A, hic2_smoothed,
+                                        h=h, max_bins=max_bins)
+
+                score = calc_scc(hic1_smoothed, hic2_smoothed,
+                                 max_bins=max_bins)
+                scores.append(score)
             scores = np.array(scores)
             queue_output.put([pid, 'step', [selected_file,
                                             for_comparison_file,
