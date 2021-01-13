@@ -35,11 +35,11 @@ def calc_scc_onevsall_worker(pid: int,
             for chrom in chromnames:
                 hic1 = mtx1.fetch(chrom)
                 hic2 = mtx2.fetch(chrom)
-                
+
                 # hic1 = meanFilterSparse(hic1, h=h)
                 # hic2 = meanFilterSparse(hic2, h=h)
                 # scores.append(calc_scc(hic1, hic2, max_bins))
-                
+
                 hic1_smoothed = np.zeros(hic1.shape, dtype=float)
                 hic2_smoothed = np.zeros(hic2.shape, dtype=float)
                 mean_filter_upper_ndiag(hic1.A, hic1_smoothed,
