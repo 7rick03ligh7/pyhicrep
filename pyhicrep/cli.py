@@ -2,9 +2,9 @@ import sys
 import os
 import argparse
 
-from .src.cpu_single.run_single import run_single
-from .src.cpu_parallel.run_parallel import run_parallel
-from .src.logger import configure_logging
+from pyhicrep.src.cpu_single.run_single import run_single
+from pyhicrep.src.cpu_parallel.run_parallel import run_parallel
+from pyhicrep.src.logger import configure_logging
 
 
 class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter,
