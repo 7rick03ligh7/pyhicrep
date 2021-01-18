@@ -1,0 +1,7 @@
+@ testchrom
+# f1 f2
+1
+# f1 f3
+2
+# f2 f3
+3

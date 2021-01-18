@@ -8,9 +8,9 @@ from .logger import log
 @log
 def open_cooler_file(path: str, bin_size: int) -> tuple:
     filename = path.split("/")[-1]
-    fileformat = filename.split(".")[-1]
-    if fileformat == "mcool":
-        path = path + "::resolutions/" + bin_size
+    # fileformat = filename.split(".")[-1]
+    # if fileformat == "mcool":
+    #     path = path + "::resolutions/" + bin_size
     mat = cooler.Cooler(path).matrix(balance=False, sparse=True)
     return mat, filename
 
@@ -22,7 +22,7 @@ def get_out_filepath(out_file: str, result_folder: str) -> str:
     else:
         filepath = out_file
 
-    if result_folder is not None:
+    if result_folder:
         os.makedirs(result_folder, exist_ok=True)
         filepath = f"./{result_folder}/{filepath}"
 
@@ -70,7 +70,7 @@ def save_to_csv(filepath: str,
 
     for d in data.values():
         for col in d.columns:
-            d.loc[col, col] = 0
+            d.loc[col, col] = 1
 
     folderpath = "/".join(filepath.split("/")[:-1])
     for k, v in data.items():

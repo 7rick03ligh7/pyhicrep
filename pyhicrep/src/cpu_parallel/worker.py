@@ -2,7 +2,7 @@ import cooler
 import numpy as np
 import multiprocessing as mp
 from ..core.calc_scc import calc_scc
-from ..core.mean_smooth import mean_filter_upper_ndiag
+from ..core.mean_filter import mean_filter_upper_ndiag
 from typing import NoReturn
 
 

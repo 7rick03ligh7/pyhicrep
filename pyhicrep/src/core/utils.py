@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.stats as ss
-from mean_smooth import mean_filter_upper_ndiag
 from typing import NoReturn
+from .mean_filter import mean_filter_upper_ndiag
 
 
 def get_distr_values_of_ranks(ranks: np.ndarray) -> np.ndarray:
@@ -25,7 +25,7 @@ def get_distr_values_of_ranks(ranks: np.ndarray) -> np.ndarray:
     Examples
     --------
     >>> import numpy as np
-    >>> ranks = np.array([3,1,2,2])
+    >>> ranks = np.array([3, 1, 2, 2])
     >>> get_distr_values_of_ranks(ranks)
     array([1.  , 0.25, 0.75, 0.75])
     """
@@ -72,8 +72,9 @@ def vstran(d1: np.ndarray, d2: np.ndarray) -> tuple:
     return ranks_distr
 
 
-def calc_diag_correlation(diags: np.ndarray, mask: np.ndarray) -> tuple:
-    """calculate Pearson correalation between two i-th diagonals
+def calc_diag_correlation(diags: np.ndarray) -> tuple:
+    """calculate Pearson correalation and variance stabilized weights
+     between two i-th diagonals
 
     Parameters
     ----------
@@ -81,9 +82,6 @@ def calc_diag_correlation(diags: np.ndarray, mask: np.ndarray) -> tuple:
         2d ndarray of i-th diagonals in Hi-C data.
         diags[0] is i-th diagonal in the first Hi-C data
         diags[1] is i-th diagonal in the second Hi-C data
-    mask : np.ndarray
-        1d ndarray of binary mask of pairwise non-zero values in
-        both diags[0] and diags[1]
 
     Returns
     -------
@@ -94,7 +92,7 @@ def calc_diag_correlation(diags: np.ndarray, mask: np.ndarray) -> tuple:
             variance stabilized weight [see vstran]
         )
     """
-    if mask.sum() > 0:
+    if diags[0].shape[0] > 0:
         if (np.unique(diags[0]).shape[0] > 1 and
                 np.unique(diags[1]).shape[0] > 1):
             n = diags.shape[1]
@@ -108,7 +106,7 @@ def calc_diag_correlation(diags: np.ndarray, mask: np.ndarray) -> tuple:
 
 
 def warm_up_smooth() -> NoReturn:
-    """function for warmup smooth njit (numba)
+    """function for warmup mean_smooth njit (numba)
 
     Returns
     -------

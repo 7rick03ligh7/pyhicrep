@@ -1,6 +1,6 @@
 import os
 import shutil
-from utils import read_txt_results
+from .utils import read_txt_results
 reference_data = "./tests/r_hicrep_results.txt"
 
 

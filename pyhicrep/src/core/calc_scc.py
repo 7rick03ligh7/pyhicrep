@@ -30,18 +30,18 @@ def calc_scc(mat1: sp.coo_matrix, mat2: sp.coo_matrix, max_bins: int) -> float:
     corrs = []
     weights = []
 
-    for i in range(max_bins+1):
+    for i in range(max_bins):
         diag1 = mat1.diagonal(i)
         diag2 = mat2.diagonal(i)
 
-        filt = ~((diag1 == 0) & (diag2 == 0))
+        mask = ~((diag1 == 0) & (diag2 == 0))
 
-        diags = np.zeros((2, filt.sum()))
+        diags = np.zeros((2, mask.sum()))
 
-        diags[0] = diag1[filt]
-        diags[1] = diag2[filt]
+        diags[0] = diag1[mask]
+        diags[1] = diag2[mask]
 
-        corr, weight = calc_diag_correlation(diags, filt)
+        corr, weight = calc_diag_correlation(diags)
 
         if not np.isnan(corr):
             corrs.append(corr)

@@ -9,7 +9,7 @@ setuptools.setup(
     description=("Python implementation of HiCRep with supporting sparse data "
                  "and parallel computation for multiple Hi-C data"),
     long_description=open('README.md').read(),
-    packages=["pyhicrep", "pyhicrep.src"],
+    packages=["pyhicrep"],
     install_requires=[
         # "cooler",
         "scipy",

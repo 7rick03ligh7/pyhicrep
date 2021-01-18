@@ -133,3 +133,6 @@ dmypy.json
 
 # TmpTestResults
 test_results
+
+# old_files
+old_files/
