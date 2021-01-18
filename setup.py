@@ -1,6 +1,6 @@
-import setuptools
+from setuptools import setup, find_packages
 
-setuptools.setup(
+setup(
     name="pyhicrep",
     version="0.8",
     url="https://github.com/7rick03ligh7/pyhicrep",
@@ -9,7 +9,7 @@ setuptools.setup(
     description=("Python implementation of HiCRep with supporting sparse data "
                  "and parallel computation for multiple Hi-C data"),
     long_description=open('README.md').read(),
-    packages=["pyhicrep"],
+    packages=find_packages(),
     install_requires=[
         # "cooler",
         "scipy",
