@@ -1,0 +1,31 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/circleci
+    docker: 
+      - image: "circleci/python:3.7.9"
+    steps:
+      - checkout
+      - run:
+          command: | 
+            pip3 install -r requirements.txt
+            python3 setup.py install
+  test:
+    working_directory: ~/circleci
+    docker: 
+      - image: "circleci/python:3.7.9"
+    steps:
+      - checkout
+      - run:
+          command: | 
+            pip3 install -r requirements-test.txt
+            pytest --cov=pyhicrep --cov-append
+
+workflows:
+  build-and-test:
+    jobs:
+      - build 
+      - test:
+          requires:
+            - build
