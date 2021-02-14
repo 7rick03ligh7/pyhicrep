@@ -9,6 +9,8 @@ jobs:
       - checkout
       - run:
           command: | 
+            python3 -m venv venv 
+            source venv/bin/acticate
             pip3 install -r requirements.txt
             python3 setup.py install
   test:
@@ -19,6 +21,7 @@ jobs:
       - checkout
       - run:
           command: | 
+            source venv/bin/activate
             pip3 install -r requirements-test.txt
             pytest --cov=pyhicrep --cov-append
 
