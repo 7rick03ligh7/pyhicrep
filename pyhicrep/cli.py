@@ -41,7 +41,7 @@ def main():
                         required=False,
                         default=-1,
                         help=("binSize of Hi-C cooler file "
-                              "a.k.a. resolution of mcool Hi-C data."
+                              "a.k.a. resolution of mcool Hi-C data. "
                               "Required if using mcool files")
                         )
     parser.add_argument('--chr',
@@ -85,8 +85,8 @@ def main():
                         default=False,
                         const=True,
                         nargs='?',
-                        help=("Flag for generating and saving <chrom name>.csv"
-                              "files from general result")
+                        help=("Flag for generating and saving "
+                              "<chrom name>.csv files from general result")
                         )
     parser.add_argument('-hicParallel',
                         type=bool,
@@ -94,8 +94,7 @@ def main():
                         default=False,
                         const=True,
                         nargs='?',
-                        help=("flag for generating and saving <chrom name>.csv"
-                              "files from general result")
+                        help=("Flag for using file-based parallelization")
                         )
     parser.add_argument('-chrParallel',
                         type=bool,
@@ -103,8 +102,8 @@ def main():
                         default=False,
                         const=True,
                         nargs='?',
-                        help=("flag for generating and saving <chrom name>.csv"
-                              "files from general result")
+                        help=("(NOT IMPLEMENTED YET) Flag for using "
+                              "chromosome-based parallelization")
                         )
     parser.add_argument('-silent',
                         type=bool,
@@ -112,7 +111,7 @@ def main():
                         default=False,
                         const=True,
                         nargs='?',
-                        help=("")
+                        help=("Flag for calculating without prints")
                         )
     parser.add_argument('-pbar',
                         type=bool,
@@ -120,7 +119,7 @@ def main():
                         default=False,
                         const=True,
                         nargs='?',
-                        help=("")
+                        help=("Flag for visualizing progressbar")
                         )
     arguments = parser.parse_args()
     if len(args) == 1:
