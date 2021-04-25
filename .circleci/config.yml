@@ -4,7 +4,7 @@ jobs:
   build_and_test:
     working_directory: ~/circleci
     docker: 
-      - image: "themattrix/tox"
+      - image: "fkrull/multi-python"
     steps:
       - checkout
       - run:
