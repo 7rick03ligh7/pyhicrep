@@ -1,15 +1,13 @@
 import numpy as np
 from numba import njit
 from typing import NoReturn
-import pytest
 
 
-@pytest.mark.no_cover
 @njit
 def mean_filter_upper_ndiag(mat: np.ndarray,
                             new_mat: np.ndarray,
                             h: int,
-                            max_bins: int) -> NoReturn:
+                            max_bins: int) -> NoReturn:  # pragma: no cover
     """mean filter function
 
     Applying mean filter to first max_bins diagonals
