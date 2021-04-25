@@ -4,26 +4,26 @@ jobs:
   build_and_test:
     working_directory: ~/circleci
     docker: 
-      - image: "circleci/python:3.7.9"
+      - image: "themattrix/tox"
     steps:
       - checkout
       - run:
-          name: install package dependencies in venv
+          name: create venv and install package dependencies
           command: | 
             python3 -m venv venv 
             source venv/bin/activate
             pip3 install -r requirements.txt
       - run:
-          name: activate venv and build package
+          name: build package
           command: |
             source venv/bin/activate
             python3 setup.py install
       - run:
-          name: install test dependencies and run pytest
+          name: install dev dependencies and run tests
           command: | 
             source venv/bin/activate
             pip3 install -r requirements-dev.txt
-            pytest --cov=pyhicrep --cov-append
+            tox
 
 workflows:
   build-and-test:
