@@ -7,23 +7,7 @@ jobs:
       - image: "fkrull/multi-python"
     steps:
       - checkout
-      - run:
-          name: create venv and install package dependencies
-          command: | 
-            python3 -m venv venv 
-            source venv/bin/activate
-            pip3 install -r requirements.txt
-      - run:
-          name: build package
-          command: |
-            source venv/bin/activate
-            python3 setup.py install
-      - run:
-          name: install dev dependencies and run tests
-          command: | 
-            source venv/bin/activate
-            pip3 install -r requirements-dev.txt
-            tox
+      - tox
 
 workflows:
   build-and-test:
