@@ -22,7 +22,7 @@ jobs:
           name: install test dependencies and run pytest
           command: | 
             source venv/bin/activate
-            pip3 install -r requirements-test.txt
+            pip3 install -r requirements-dev.txt
             pytest --cov=pyhicrep --cov-append
 
 workflows:
