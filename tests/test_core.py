@@ -4,10 +4,10 @@
 
 import numpy as np
 import scipy.sparse as sp
-from pyhicrep.src.core.mean_filter import mean_filter_upper_ndiag_nonjit
-from pyhicrep.src.core.calc_scc import calc_scc
+from pyhicrep.core.mean_filter import mean_filter_upper_ndiag_nonjit
+from pyhicrep.core.calc_scc import calc_scc
 
-from pyhicrep.src.core.utils import (
+from pyhicrep.core.utils import (
     calc_diag_correlation,
     get_distr_values_of_ranks,
     vstran

@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import cooler
 import shutil
-from pyhicrep.src.utils import (
+from pyhicrep.utils import (
     open_cooler_file,
     get_out_filepath,
     save_to_csv,
