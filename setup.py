@@ -26,8 +26,10 @@ setup(
     ],
     zip_safe=False,
     classifiers=[
-        "License :: OSI Approved :: BSD License"
-        "Programming Language :: Python :: 3.7+",
+        "License :: OSI Approved :: BSD License",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     python_requires='>=3.7.* ',
     entry_points={"console_scripts": ["pyhicrep=pyhicrep.cli:main"]},
