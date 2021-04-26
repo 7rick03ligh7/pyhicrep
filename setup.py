@@ -1,15 +1,8 @@
-import os
 from os.path import basename, splitext
 from glob import glob
 
 from setuptools import setup, find_packages
 
-
-_PATH_ROOT = os.path.dirname(__file__)
-_PATH_REQUIRE = os.path.join(_PATH_ROOT, 'requirements.txt')
-
-with open(_PATH_REQUIRE) as f:
-    requirements = f.read().splitlines()
 
 setup(
     name="pyhicrep",
