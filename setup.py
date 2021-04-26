@@ -23,7 +23,14 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
-    install_requires=requirements,
+    install_requires=[
+        "numpy>=1.19.5",
+        "scipy>=1.6.0",
+        "numba>=0.52.0",
+        "pandas>=1.2.0",
+        "tqdm>=4.55.2",
+        "cooler>=0.8.10"
+    ],
     zip_safe=False,
     classifiers=[
         "License :: OSI Approved :: BSD License"
