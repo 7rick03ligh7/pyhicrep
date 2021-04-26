@@ -13,7 +13,8 @@ def test_run_single_from_cli_two_files_chr1():
                 "--maxBins=50",
                 "--h=3",
                 "--resFolder=test_results",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/result_SCC.txt')
@@ -30,7 +31,8 @@ def test_run_single_from_cli_two_files_chr2():
                 "--maxBins=50",
                 "--h=3",
                 "--resFolder=test_results",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/result_SCC.txt')
@@ -48,7 +50,8 @@ def test_run_single_from_cli_two_files_chr3():
                 "--h=3",
                 "--outFile=testout.txt",
                 "--resFolder=test_results",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/testout.txt')
@@ -66,7 +69,8 @@ def test_run_single_from_cli_two_files_chr1chr3():
                 "--h=3",
                 "--outFile=testout.txt",
                 "--resFolder=test_results",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/testout.txt')
@@ -84,7 +88,8 @@ def test_run_single_from_cli_two_files_chrFile():
                 "--h=3",
                 "--outFile=testout.txt",
                 "--resFolder=test_results",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/testout.txt')

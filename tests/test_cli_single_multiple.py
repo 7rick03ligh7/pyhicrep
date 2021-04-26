@@ -12,7 +12,8 @@ def test_run_single_from_cli_multiple_files_chr1():
                 "--h=3",
                 "--resFolder=test_results",
                 "--filesFolder=./tests/data",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/result_SCC.txt')
@@ -41,7 +42,8 @@ def test_run_single_from_cli_multiple_files_chr3():
                 "--h=3",
                 "--resFolder=test_results",
                 "--filesFolder=./tests/data",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/result_SCC.txt')
@@ -70,7 +72,8 @@ def test_run_single_from_cli_multiple_files_chr2chr3():
                 "--h=3",
                 "--resFolder=test_results",
                 "--filesFolder=./tests/data",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/result_SCC.txt')
@@ -99,7 +102,8 @@ def test_run_single_from_cli_multiple_files_chrFile():
                 "--h=3",
                 "--resFolder=test_results",
                 "--filesFolder=./tests/data",
-                "-silent"]
+                "-silent",
+                "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/result_SCC.txt')
