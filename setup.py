@@ -1,10 +1,14 @@
+import os
+from os.path import basename, splitext
 from glob import glob
-from os.path import basename
-from os.path import splitext
 
 from setuptools import setup, find_packages
 
-with open('requirements.txt') as f:
+
+_PATH_ROOT = os.path.dirname(__file__)
+_PATH_REQUIRE = os.path.join(_PATH_ROOT, 'requirements.txt')
+
+with open(_PATH_REQUIRE) as f:
     requirements = f.read().splitlines()
 
 setup(
