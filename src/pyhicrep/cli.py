@@ -146,10 +146,6 @@ def main():
     if arguments.silent:
         is_pbar = False
 
-    to_csv = False
-    if arguments.saveCSV:
-        to_csv = True
-
     if arguments.file1 and arguments.file2:
         filepathes = [arguments.file1, arguments.file2]
     elif arguments.filesFolder:
@@ -177,7 +173,7 @@ def main():
                    out_file=out_file,
                    result_folder=result_folder,
                    bin_size=bin_size,
-                   to_csv=to_csv,
+                   to_csv=arguments.saveCSV,
                    is_pbar=is_pbar
                    )
 
@@ -194,7 +190,7 @@ def main():
                      out_file=out_file,
                      result_folder=result_folder,
                      bin_size=bin_size,
-                     to_csv=to_csv,
+                     to_csv=arguments.saveCSV,
                      n_processes=n_processes,
                      is_hicwise=is_hicwise,
                      is_pbar=is_pbar
