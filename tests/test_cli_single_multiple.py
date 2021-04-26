@@ -6,7 +6,7 @@ reference_data = "./tests/r_hicrep_results.txt"
 
 
 def test_run_single_from_cli_multiple_files_chr1():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chr=chr1",
                 "--maxBins=50",
                 "--h=3",
@@ -35,7 +35,7 @@ def test_run_single_from_cli_multiple_files_chr1():
 
 
 def test_run_single_from_cli_multiple_files_chr3():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chr=chr3",
                 "--maxBins=50",
                 "--h=3",
@@ -64,7 +64,7 @@ def test_run_single_from_cli_multiple_files_chr3():
 
 
 def test_run_single_from_cli_multiple_files_chr2chr3():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chr=chr2,chr3",
                 "--maxBins=50",
                 "--h=3",
@@ -93,7 +93,7 @@ def test_run_single_from_cli_multiple_files_chr2chr3():
 
 
 def test_run_single_from_cli_multiple_files_chrFile():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chrFile=./tests/chr.txt",
                 "--maxBins=50",
                 "--h=3",
