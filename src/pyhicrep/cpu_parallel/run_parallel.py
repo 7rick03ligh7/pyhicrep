@@ -127,7 +127,7 @@ def run_parallel(filepathes: list,
                                           n_processes=n_processes,
                                           is_pbar=is_pbar)
     else:
-        raise("the chromosome-wise parallel calculation doesn't realize yet")
+        raise NotImplementedError("the chromosome-wise parallel calculation doesn't implement yet")
 
     # Calculate filepath
     filepath = get_out_filepath(out_file=out_file,

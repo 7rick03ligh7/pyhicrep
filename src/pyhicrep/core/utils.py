@@ -102,7 +102,7 @@ def calc_diag_correlation(diags: np.ndarray) -> tuple:
             weight = np.sqrt(np.var(nd[0], ddof=1)*np.var(nd[1], ddof=1))*n
 
             return (corr, weight)
-    return (np.nan, np.nan)
+    return (np.nan, np.nan)  # pragma: no cover
 
 
 def warm_up_smooth() -> NoReturn:

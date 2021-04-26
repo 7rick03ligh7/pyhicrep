@@ -3,6 +3,8 @@ import os
 import argparse
 import re
 
+# sys.path.append('C:/Files/Projects/pyhicrep/src')
+
 from pyhicrep.cpu_single.run_single import run_single
 from pyhicrep.cpu_parallel.run_parallel import run_parallel
 from pyhicrep.logger import configure_logging
@@ -121,10 +123,9 @@ def main():
                         nargs='?',
                         help=("Flag for visualizing progressbar")
                         )
-    arguments = parser.parse_args()
     if len(args) == 1:
         parser.print_help()
-        return
+    arguments = parser.parse_args()
 
     bin_size = arguments.binSize
     max_bins = arguments.maxBins
@@ -139,6 +140,7 @@ def main():
                 chromnames.append(line[:-1])
             if line[-1] != '\n':
                 print('ERROR: \n must be at last line')
+                return
     else:
         chromnames = arguments.chr.split(',')
 
@@ -165,7 +167,7 @@ def main():
     logger_stdout = not arguments.pbar and not arguments.silent
     configure_logging(stdout=logger_stdout)
 
-    if int(arguments.hicParallel) + int(arguments.chrParallel) == 0:
+    if not arguments.hicParallel and not arguments.chrParallel:
         run_single(filepathes,
                    max_bins,
                    h,
@@ -176,30 +178,28 @@ def main():
                    to_csv=arguments.saveCSV,
                    is_pbar=is_pbar
                    )
-
-    elif int(arguments.hicParallel) + int(arguments.chrParallel) == 1:
+    if arguments.hicParallel and arguments.chrParallel:
+        print(("ERROR: Only one of the parallel method can be selected. "
+               "For help: pyhicrep --help"))
+        return
+    else:
         n_processes = arguments.threads
         if arguments.hicParallel:
             is_hicwise = arguments.hicParallel
         else:
-            is_hicwise = not arguments.hicParallel
-        run_parallel(filepathes,
-                     max_bins,
-                     h,
-                     chromnames,
-                     out_file=out_file,
-                     result_folder=result_folder,
-                     bin_size=bin_size,
-                     to_csv=arguments.saveCSV,
-                     n_processes=n_processes,
-                     is_hicwise=is_hicwise,
-                     is_pbar=is_pbar
-                     )
-    else:
-        print(("ERROR: Only one of the parallel method can be selected. "
-               "For help: pyhicrep --help"))
-        return
-
-
-if __name__ == '__main__':
-    main()
+            is_hicwise = not arguments.chrParallel
+        try:
+            run_parallel(filepathes,
+                         max_bins,
+                         h,
+                         chromnames,
+                         out_file=out_file,
+                         result_folder=result_folder,
+                         bin_size=bin_size,
+                         to_csv=arguments.saveCSV,
+                         n_processes=n_processes,
+                         is_hicwise=is_hicwise,
+                         is_pbar=is_pbar
+                         )
+        except NotImplementedError as e:
+            print(e)

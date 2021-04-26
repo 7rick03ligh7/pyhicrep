@@ -6,7 +6,7 @@ reference_data = "./tests/r_hicrep_results.txt"
 
 
 def test_run_single_from_cli_two_files_chr1():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--file1=./tests/data/1CSE-10.cool",
                 "--file2=./tests/data/1CSE-11.cool",
                 "--chr=chr1",
@@ -23,7 +23,7 @@ def test_run_single_from_cli_two_files_chr1():
 
 
 def test_run_single_from_cli_two_files_chr2():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--file1=./tests/data/1CSE-10.cool",
                 "--file2=./tests/data/1CSE-11.cool",
                 "--chr=chr2",
@@ -40,7 +40,7 @@ def test_run_single_from_cli_two_files_chr2():
 
 
 def test_run_single_from_cli_two_files_chr3():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--file1=./tests/data/1CSE-10.cool",
                 "--file2=./tests/data/1CSE-11.cool",
                 "--chr=chr3",
@@ -58,7 +58,7 @@ def test_run_single_from_cli_two_files_chr3():
 
 
 def test_run_single_from_cli_two_files_chr1chr3():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--file1=./tests/data/1CSE-10.cool",
                 "--file2=./tests/data/1CSE-11.cool",
                 "--chr=chr1,chr3",
@@ -76,7 +76,7 @@ def test_run_single_from_cli_two_files_chr1chr3():
 
 
 def test_run_single_from_cli_two_files_chrFile():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--file1=./tests/data/1CSE-10.cool",
                 "--file2=./tests/data/1CSE-11.cool",
                 "--chrFile=./tests/chr.txt",
@@ -84,7 +84,8 @@ def test_run_single_from_cli_two_files_chrFile():
                 "--h=3",
                 "--outFile=testout.txt",
                 "--resFolder=test_results",
-                "-pbar"]
+                "-pbar",
+                "-saveCSV"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/testout.txt')

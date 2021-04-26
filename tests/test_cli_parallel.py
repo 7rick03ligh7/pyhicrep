@@ -6,7 +6,7 @@ reference_data = "./tests/r_hicrep_results.txt"
 
 
 def test_run_parallel_from_cli_multiple_files_chr1():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chr=chr1",
                 "--maxBins=50",
                 "--h=3",
@@ -37,7 +37,7 @@ def test_run_parallel_from_cli_multiple_files_chr1():
 
 
 def test_run_parallel_from_cli_multiple_files_chr3():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chr=chr3",
                 "--maxBins=50",
                 "--h=3",
@@ -69,7 +69,7 @@ def test_run_parallel_from_cli_multiple_files_chr3():
 
 
 def test_run_parallel_from_cli_multiple_files_chr1ch2():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chr=chr1,chr2",
                 "--maxBins=50",
                 "--h=3",
@@ -101,7 +101,7 @@ def test_run_parallel_from_cli_multiple_files_chr1ch2():
 
 
 def test_run_parallel_from_cli_multiple_files_chrFile():
-    sys.argv = ["python pyhicrep/cli.py",
+    sys.argv = ["pyhicrep",
                 "--chrFile=./tests/chr.txt",
                 "--maxBins=50",
                 "--h=3",
@@ -110,7 +110,7 @@ def test_run_parallel_from_cli_multiple_files_chrFile():
                 "--filesFolder=./tests/data",
                 "-hicParallel",
                 "--threads=4",
-                "-silent"]
+                "-saveCSV"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/testout.txt')
