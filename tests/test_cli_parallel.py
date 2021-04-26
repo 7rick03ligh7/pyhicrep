@@ -14,7 +14,6 @@ def test_run_parallel_from_cli_multiple_files_chr1():
                 "--filesFolder=./tests/data",
                 "-hicParallel",
                 "--threads=4",
-                "-silent",
                 "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
@@ -47,8 +46,7 @@ def test_run_parallel_from_cli_multiple_files_chr3():
                 "--filesFolder=./tests/data",
                 "-hicParallel",
                 "--threads=4",
-                "-silent",
-                "-pbar"]
+                "-silent"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/testout.txt')
@@ -80,7 +78,6 @@ def test_run_parallel_from_cli_multiple_files_chr1ch2():
                 "--filesFolder=./tests/data",
                 "-hicParallel",
                 "--threads=4",
-                "-silent",
                 "-pbar"]
     main()
     real_data = read_txt_results(reference_data)
@@ -113,8 +110,7 @@ def test_run_parallel_from_cli_multiple_files_chrFile():
                 "--filesFolder=./tests/data",
                 "-hicParallel",
                 "--threads=4",
-                "-silent",
-                "-pbar"]
+                "-silent"]
     main()
     real_data = read_txt_results(reference_data)
     gen_data = read_txt_results('./test_results/testout.txt')
